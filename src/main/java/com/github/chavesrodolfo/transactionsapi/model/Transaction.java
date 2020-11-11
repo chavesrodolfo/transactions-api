@@ -2,6 +2,7 @@ package com.github.chavesrodolfo.transactionsapi.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -27,7 +28,10 @@ public class Transaction {
     @OneToOne
     OperationType operationType;
 
+    @Column(nullable = false)
     Date eventDate;
+    
+    @Column(nullable = false)
     Double amount;
 
     public Transaction(TransactionVO transactionVO) {

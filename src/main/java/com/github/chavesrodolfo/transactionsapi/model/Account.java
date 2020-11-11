@@ -1,5 +1,6 @@
 package com.github.chavesrodolfo.transactionsapi.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -16,6 +17,8 @@ public class Account {
 	@Id
     @GeneratedValue
     private Long id;
+
+    @Column(nullable = false, unique = true)
     private Long document;
 
     public Account(AccountVO accountVO) {
