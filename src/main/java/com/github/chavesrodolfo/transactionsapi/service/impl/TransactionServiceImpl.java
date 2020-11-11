@@ -59,11 +59,17 @@ public class TransactionServiceImpl implements TransactionService {
 
     private void validateTransaction(TransactionRequest transaction) {
         if (transaction.getAmount() > 0
-                && transaction.getOperation_type_id().equals(TransactionConstants.COMPRA_A_VISTA)) {
-            throw new TransactionNotAcceptedException();
+                && (transaction.getOperation_type_id().equals(TransactionConstants.COMPRA_A_VISTA)
+                        || transaction.getOperation_type_id().equals(TransactionConstants.COMPRA_PARCELADA)
+                        || transaction.getOperation_type_id().equals(TransactionConstants.SAQUE))) {
+            throw new TransactionNotAcceptedException(
+                    String.format("Amount must be < 0 for operation_type_id = %d", transaction.getOperation_type_id()));
         }
 
-        //TODO proximas validacoes
+        if (transaction.getAmount() < 0 && transaction.getOperation_type_id().equals(TransactionConstants.PAGAMENTO)) {
+            throw new TransactionNotAcceptedException(
+                    String.format("Amount must be > 0 for operation_type_id = %d", transaction.getOperation_type_id()));
+        }
     }
 
 }
