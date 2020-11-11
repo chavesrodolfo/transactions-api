@@ -58,6 +58,11 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     private void validateTransaction(TransactionRequest transaction) {
+
+        if (transaction.getAmount() == null) {
+            throw new TransactionNotAcceptedException(String.format("Amount is required"));
+        }
+
         if (transaction.getAmount() > 0
                 && (transaction.getOperation_type_id().equals(TransactionConstants.COMPRA_A_VISTA)
                         || transaction.getOperation_type_id().equals(TransactionConstants.COMPRA_PARCELADA)
