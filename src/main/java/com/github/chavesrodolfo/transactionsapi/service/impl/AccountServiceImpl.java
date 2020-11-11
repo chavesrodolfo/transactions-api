@@ -1,5 +1,6 @@
 package com.github.chavesrodolfo.transactionsapi.service.impl;
 
+import com.github.chavesrodolfo.transactionsapi.exceptions.AccountNotAcceptedException;
 import com.github.chavesrodolfo.transactionsapi.exceptions.AccountNotFoundException;
 import com.github.chavesrodolfo.transactionsapi.model.Account;
 import com.github.chavesrodolfo.transactionsapi.model.representations.AccountVO;
@@ -7,6 +8,7 @@ import com.github.chavesrodolfo.transactionsapi.repository.AccountRepository;
 import com.github.chavesrodolfo.transactionsapi.service.AccountService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +24,15 @@ public class AccountServiceImpl implements AccountService {
     public AccountVO createAccount(AccountVO accountVO) {
         log.info("Creating Account for document {}", accountVO.getDocument_number());
 
-        Account account = accountRepository.save(new Account(accountVO));
+        Account account;
+
+        try {
+            account = accountRepository.save(new Account(accountVO));
+        } catch (DataIntegrityViolationException e) {
+            throw new AccountNotAcceptedException(
+                    String.format("Document %s is already registred.", accountVO.getDocument_number()));
+        }
+
         return account.transform();
     }
 
@@ -33,5 +43,5 @@ public class AccountServiceImpl implements AccountService {
         Account account = accountRepository.findById(id).orElseThrow(() -> new AccountNotFoundException(id));
         return account.transform();
     }
-    
+
 }
