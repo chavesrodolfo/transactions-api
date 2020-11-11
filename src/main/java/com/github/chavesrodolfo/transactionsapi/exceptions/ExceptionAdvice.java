@@ -31,5 +31,12 @@ public class ExceptionAdvice {
     MessageResponse transactionNotAcceptedExceptionHandler(TransactionNotAcceptedException e) {
         return new MessageResponse(HttpStatus.BAD_REQUEST.toString(), e.getMessage());
     }
+
+    @ResponseBody
+    @ExceptionHandler(AccountNotAcceptedException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    MessageResponse accountNotAcceptedExceptionHandler(AccountNotAcceptedException e) {
+        return new MessageResponse(HttpStatus.BAD_REQUEST.toString(), e.getMessage());
+    }
     
 }
