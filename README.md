@@ -15,8 +15,6 @@ Transações de tipo **compra e saque** são registradas com **valor negativo**,
 
 *OperationType*
 
-*enum*
-
 | id | description |
 | - | - |
 | 1 | COMPRA A VISTA |
