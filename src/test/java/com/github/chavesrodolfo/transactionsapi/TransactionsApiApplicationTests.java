@@ -1,6 +1,5 @@
 package com.github.chavesrodolfo.transactionsapi;
 
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.github.chavesrodolfo.transactionsapi.controller.AccountController;
@@ -11,13 +10,10 @@ import com.github.chavesrodolfo.transactionsapi.model.representations.Transactio
 import com.github.chavesrodolfo.transactionsapi.util.TransactionConstants;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-@ExtendWith(MockitoExtension.class)
 class TransactionsApiApplicationTests {
 
 	@Autowired
